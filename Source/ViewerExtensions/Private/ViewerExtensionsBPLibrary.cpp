@@ -17,7 +17,8 @@ float UViewerExtensionsBPLibrary::ViewerExtensionsSampleFunction(float Param)
 	return -1;
 }
 
-bool UViewerExtensionsBPLibrary::CreateWidgetInNewWindow(UClass * UMG, UObject * Owner, int ResX, int ResY)
+bool UViewerExtensionsBPLibrary::CreateWidgetInNewWindow(UClass * UMG, UObject * Owner, int ResX, int ResY, FString WindowTitle, bool SupportMinimize,
+	bool SupportMaximize, bool SupportResize, bool AlwaysOnTop)
 {
 
 	// Check if UClass is of Class UserWidget
@@ -30,16 +31,17 @@ bool UViewerExtensionsBPLibrary::CreateWidgetInNewWindow(UClass * UMG, UObject *
 		UWorld* World = Owner->GetWorld();
 		// Todo: Create function setting the value for "IsTopmost.." depending on Play is in Engine Viewport (Otherwise there is a crash)
 		// Create a new window
-		bool TopMost = true;
 
 		UUserWidget* WidgetToCreate{};
 		WidgetToCreate = UWidgetBlueprintLibrary::Create(World, UMG, ((APlayerController*)nullptr));
 
 		auto NewWindow = SNew(SWindow)
+			.Title(FText::FromString(WindowTitle))
 			.ClientSize(FVector2D(ResX, ResY))
-			.SupportsMinimize(true)
-			.SupportsMaximize(true)
-			.IsTopmostWindow(true)
+			.SupportsMinimize(SupportMinimize)
+			.SupportsMaximize(SupportMaximize)
+			.UserResizeBorder(SupportResize)
+			.IsTopmostWindow(AlwaysOnTop)
 			[
 				SNew(SOverlay)
 				+ SOverlay::Slot()

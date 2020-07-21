@@ -32,9 +32,10 @@ class UViewerExtensionsBPLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_UCLASS_BODY()
 
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute Sample function", Keywords = "ViewerExtensions sample test testing"), Category = "ViewerExtensionsTesting")
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute Sample function", Keywords = "ViewerExtensions sample test testing"), Category = "ViewerExtensions")
 	static float ViewerExtensionsSampleFunction(float Param);
 
 	UFUNCTION(BlueprintCallable, Category = "Viewer Extensions")
-	static bool CreateWidgetInNewWindow(UClass* UMG, UObject* Owner, int ResX, int ResY);
+	static bool CreateWidgetInNewWindow(UClass* UMG, UObject* Owner, int ResX, int ResY, FString WindowTitle, bool SupportMinimize,
+		bool SupportMaximize, bool SupportResize, bool AlwaysOnTop);
 };
