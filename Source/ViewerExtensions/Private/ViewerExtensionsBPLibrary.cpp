@@ -5,6 +5,7 @@
 #include "Runtime/Engine/Classes/Kismet/KismetMathLibrary.h"
 #include "Runtime/UMG/Public/Blueprint/UserWidget.h"
 #include "Runtime/UMG/Public/Blueprint/WidgetBlueprintLibrary.h"
+#include "UObject/ScriptDelegates.h"
 
 UViewerExtensionsBPLibrary::UViewerExtensionsBPLibrary(const FObjectInitializer& ObjectInitializer)
 : Super(ObjectInitializer)
@@ -24,10 +25,7 @@ bool UViewerExtensionsBPLibrary::CreateWidgetInNewWindow(UClass * UMG, UObject *
 	// Check if UClass is of Class UserWidget
 	if (UKismetMathLibrary::ClassIsChildOf(UMG, UUserWidget::StaticClass()))
 	{
-		/*
-		UWorld* World = GEditor->GetEditorWorldContext().World();
-		check(World);
-		*/
+
 		UWorld* World = Owner->GetWorld();
 		// Todo: Create function setting the value for "IsTopmost.." depending on Play is in Engine Viewport (Otherwise there is a crash)
 		// Create a new window
@@ -52,6 +50,7 @@ bool UViewerExtensionsBPLibrary::CreateWidgetInNewWindow(UClass * UMG, UObject *
 
 		FSlateApplication::Get().AddWindow(NewWindow, true);
 		NewWindow->SetContent(WidgetToCreate->TakeWidget());
+
 		return true;
 	}
 	else
@@ -59,5 +58,6 @@ bool UViewerExtensionsBPLibrary::CreateWidgetInNewWindow(UClass * UMG, UObject *
 		UE_LOG(LogTemp, Error, TEXT("Selected Class was not a Widget"));
 		return false;
 	};
-};
+}
+
 
