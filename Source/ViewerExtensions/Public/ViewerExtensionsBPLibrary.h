@@ -36,5 +36,5 @@ class UViewerExtensionsBPLibrary : public UBlueprintFunctionLibrary
 	static float ViewerExtensionsSampleFunction(float Param);
 
 	UFUNCTION(BlueprintCallable, Category = "Viewer Extensions")
-	static bool CreateWidgetInNewWindow(UClass* UMG, UObject* Owner);
+	static bool CreateWidgetInNewWindow(UClass* UMG, UObject* Owner, int ResX, int ResY);
 };
